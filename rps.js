@@ -45,13 +45,13 @@ function inputIsValid(input) {
 }
 
 function lostRound(computerChoice, playerChoice) {
-    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
     computerWins++;
+    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function wonRound(computerChoice, playerChoice) {
-    alert(`You win this round! ${playerChoice} beats ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
     playerWins++;
+    alert(`You win this round! ${playerChoice} beats ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function tieRound(computerChoice) {
