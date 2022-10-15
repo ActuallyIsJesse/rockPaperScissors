@@ -1,7 +1,7 @@
 const totalRounds = 5;
 let computerWins = 0;
 let playerWins = 0;
-let noWinner = false;
+numberOfRounds = 1
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
@@ -45,17 +45,17 @@ function inputIsValid(input) {
 }
 
 function lostRound(computerChoice, playerChoice) {
-    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.`);
+    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
     computerWins++;
 }
 
 function wonRound(computerChoice, playerChoice) {
-    alert(`You win this round! ${playerChoice} beats ${computerChoice}.`);
+    alert(`You win this round! ${playerChoice} beats ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
     playerWins++;
 }
 
 function tieRound(computerChoice) {
-    alert(`A Tie! You both picked ${computerChoice}.`);
+    alert(`A Tie! You both picked ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function evaulateRoundWinner(computerChoice, playerChoice) {
@@ -107,27 +107,35 @@ function commenceRound() {
 } 
 
 function haveWinner(numberOfRounds) {
-if (numberOfRounds === 5 || playerWins >= 3 || computerWins >= 3) {
+// The following if statement evaulates if the rounds are up, the player has won the best out of 5, and if it's possible for either player to overtake the other by the end of the round.
+    if (numberOfRounds === 5 || playerWins >= 3 || computerWins >= 3 || (totalRounds - numberOfRounds) < (playerWins - computerWins) || (totalRounds - numberOfRounds) < (computerWins - playerWins)) {
     return true;
-} else {
+    } else {
     return false;
-}
+    }
 }
 
 function playAgainPrompt(victor) {
-        let playAgain = confirm(`The ${victor} wins! Play again?`);
-        if (playAgain) {
-            newGame();
-            } else {
-                 alert(`Thanks for playing!`);
-            }
+    let playAgain = true;
+    if (victor != `tie`){
+        playAgain = confirm(`The ${victor} wins! Play again?`)
+    } else {
+        playAgain = confirm(`It's a tie! Play again?`); 
+    }
+    if (playAgain) {
+        computerWins = 0;
+        playerWins = 0;
+        numberOfRounds = 0;
+        newGame();
+    } else {
+         alert(`Thanks for playing!`);
+        }
 }
 
 
 function newGame() {
-    for (let numberOfRounds = 1; numberOfRounds <= totalRounds; numberOfRounds++ ) {
+    for (; numberOfRounds <= totalRounds; numberOfRounds++ ) {
             commenceRound();
-            alert(`Current Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
             gameHasWinner = haveWinner(numberOfRounds);
             if (gameHasWinner) {
                 if (playerWins > computerWins) {
