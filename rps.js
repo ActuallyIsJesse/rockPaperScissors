@@ -1,7 +1,7 @@
 const totalRounds = 5;
 let computerWins = 0;
 let playerWins = 0;
-numberOfRounds = 1
+numberOfRounds = 1;
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
