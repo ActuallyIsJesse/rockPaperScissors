@@ -5,17 +5,9 @@ numberOfRounds = 1
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
-    switch(randomChoice) {
-        case 0:
-            randomChoice = "Rock";
-            break;
-        case 1:
-            randomChoice = "Paper";
-            break;
-        case 2:
-            randomChoice = "Scissors";
-            break;
-    }
+    randomChoice = (randomChoice = 0) ? randomChoice = "Rock" 
+    : (randomChoice = 1) ? randomChoice = "Paper" 
+    : randomChoice = "Scissors"; 
     return randomChoice;
 }
 
@@ -46,16 +38,22 @@ function inputIsValid(input) {
 
 function lostRound(computerChoice, playerChoice) {
     computerWins++;
-    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
+    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.
+            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
+            \n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function wonRound(computerChoice, playerChoice) {
     playerWins++;
-    alert(`You win this round! ${playerChoice} beats ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
+    alert(`You win this round! ${playerChoice} beats ${computerChoice}.
+            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
+            \n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function tieRound(computerChoice) {
-    alert(`A Tie! You both picked ${computerChoice}.\n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}\n\n${numberOfRounds} out of ${totalRounds} played.`);
+    alert(`A Tie! You both picked ${computerChoice}.
+            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
+            \n\n${numberOfRounds} out of ${totalRounds} played.`);
 }
 
 function evaulateRoundWinner(computerChoice, playerChoice) {
@@ -98,8 +96,6 @@ function evaulateRoundWinner(computerChoice, playerChoice) {
         }
     }
 
-
-
 function commenceRound() {
     let computerChoice = getComputerChoice();
     let playerChoice = getPlayerChoice();
@@ -107,8 +103,13 @@ function commenceRound() {
 } 
 
 function haveWinner(numberOfRounds) {
-// The following if statement evaulates if the rounds are up, the player has won the best out of 5, and if it's possible for either player to overtake the other by the end of the round.
-    if (numberOfRounds === 5 || playerWins >= 3 || computerWins >= 3 || (totalRounds - numberOfRounds) < (playerWins - computerWins) || (totalRounds - numberOfRounds) < (computerWins - playerWins)) {
+// The following if statement evaulates if the rounds are up, 
+// the player has won the best out of 5, 
+// or if it's possible for either player to overtake 
+//the other by the end of the round.
+    if (numberOfRounds === 5 || playerWins >= 3 || computerWins >= 3 
+        || (totalRounds - numberOfRounds) < (playerWins - computerWins) 
+        || (totalRounds - numberOfRounds) < (computerWins - playerWins)) {
     return true;
     } else {
     return false;
@@ -132,7 +133,6 @@ function playAgainPrompt(victor) {
         }
 }
 
-
 function newGame() {
     for (; numberOfRounds <= totalRounds; numberOfRounds++ ) {
             commenceRound();
@@ -152,7 +152,5 @@ function newGame() {
             }
         }
     }
-
-
 
 newGame();
