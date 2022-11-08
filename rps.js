@@ -150,8 +150,9 @@ function haveWinner(numberOfRounds) {
 }
 
 function playAgainPrompt(victor) {
+    hideScore();
     if (victor != `tie`){
-        displayMessage(`That's it!`, `The ${victor} wins! Do you want to play again?`, `Let's Go!`, "initializeGame");
+        displayMessage(`${victor} wins!`, `Your score: ${playerWins} | Computer score: ${computerWins}`, `Let's Go!`, "initializeGame");
     } else {
         displayMessage(`That's it!`, `It's a tie! Play again?`, `Let's Go!`, "initializeGame"); 
     }
@@ -174,6 +175,11 @@ function displayMessage(headingText, messageText, buttonText, action) {
 function drawScore() {
     scoreCounter.textContent = `Player Wins: ${playerWins}   |   Computer Wins ${computerWins}`;
     roundCounter.textContent = `Round: ${numberOfRounds}/${totalRounds}`;
+}
+
+function hideScore() {
+    scoreCounter.textContent = "";
+    roundCounter.textContent = "";
 }
 
 function initializeGame() {
