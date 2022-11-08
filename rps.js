@@ -46,11 +46,9 @@ initializeGame();
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
-    console.log(`Random Number: ${randomChoice}`)
     randomChoice = randomChoice === 0 ? randomChoice = "Rock" 
     : randomChoice === 1 ? randomChoice = "Paper" 
-    : randomChoice = "Scissors"; 
-    console.log(`Choice: ${randomChoice}`);
+    : randomChoice === "Scissors"; 
     return randomChoice;
 }
 
