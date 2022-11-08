@@ -3,6 +3,10 @@ let computerWins = 0;
 let playerWins = 0;
 numberOfRounds = 1;
 
+const startButton = document.querySelector('#start-button');
+console.log(startButton);
+startButton.addEventListener('click', newGame);
+
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
     randomChoice = (randomChoice = 0) ? randomChoice = "Rock" 
@@ -152,5 +156,3 @@ function newGame() {
             }
         }
     }
-
-newGame();
