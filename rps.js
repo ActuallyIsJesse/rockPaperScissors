@@ -1,10 +1,16 @@
+// © 2022 Jesse Lord. This is just a fun little game of Rock, Paper Scissors.
+
 const totalRounds = 5;
 let computerWins = 0;
 let playerWins = 0;
-numberOfRounds = 1;
+let numberOfRounds = 1;
+let buttonAction = "initializeGame"
 
 const startButton = document.querySelector('#start-button');
-const welcome = document.querySelector('#welcome');
+const messageWindow = document.querySelector('#message-window');
+const messageHeading = document.querySelector('#message-h2');
+const messageContent = document.querySelector('#message-content');
+const messageImage = document.querySelector('#welcome-image');
 const gameWrapper = document.querySelector('#game-wrapper');
 const rockSelect = document.querySelector('#rock-select');
 const paperSelect = document.querySelector('#paper-select');
@@ -12,46 +18,60 @@ const scissorsSelect = document.querySelector('#scissors-select');
 const scoreCounter = document.querySelector('#score-counter');
 const roundCounter = document.querySelector('#round-counter');
 
+// Setup event handlers
 startButton.addEventListener('click', () => {
-    welcome.classList.add('hidden');
-    gameWrapper.classList.remove('hidden')
-    rockSelect.addEventListener('click', () => {
-        commenceRound("Rock");
-    });
-     paperSelect.addEventListener('click', () => {
-        commenceRound("Paper");
-      });
-     scissorsSelect.addEventListener('click', () => {
-        commenceRound("Scissors");
-    });
+    // Button action is set by a value passed to displayMessage(). We decide what the button should do here.
+    switch (buttonAction) {
+        case "initializeGame":
+            initializeGame();
+        case "commenceRound":
+            numberOfRounds++;
+            commenceRound();
+            return;
+    }
 });
+
+rockSelect.addEventListener('click', () => {
+    commenceRound("Rock");
+});
+ paperSelect.addEventListener('click', () => {
+    commenceRound("Paper");
+  });
+ scissorsSelect.addEventListener('click', () => {
+    commenceRound("Scissors");
+});
+
+//Initial Setup. Event handlers will carry the game after this
+
+initializeGame();
+
+// Functions
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
-    randomChoice = (randomChoice = 0) ? randomChoice = "Rock" 
-    : (randomChoice = 1) ? randomChoice = "Paper" 
+    console.log(`Random Number: ${randomChoice}`)
+    randomChoice = randomChoice === 0 ? randomChoice = "Rock" 
+    : randomChoice === 1 ? randomChoice = "Paper" 
     : randomChoice = "Scissors"; 
+    console.log(`Choice: ${randomChoice}`);
     return randomChoice;
 }
 
 function lostRound(computerChoice, playerChoice) {
     computerWins++;
-    alert(`You lose this round! ${computerChoice} beats ${playerChoice}.
-            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
-            \n\n${numberOfRounds} out of ${totalRounds} played.`);
+    drawScore();
+    displayMessage(`Oof!`, `You lose this round! ${computerChoice} beats ${playerChoice}`, `Play Next Round`, "commenceRound");
 }
 
 function wonRound(computerChoice, playerChoice) {
     playerWins++;
-    alert(`You win this round! ${playerChoice} beats ${computerChoice}.
-            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
-            \n\n${numberOfRounds} out of ${totalRounds} played.`);
+    drawScore();
+    displayMessage(`Huzzah!`, `You win this round! ${playerChoice} beats ${computerChoice}`, `Play Next Round`, "commenceRound");
 }
 
 function tieRound(computerChoice) {
-    alert(`A Tie! You both picked ${computerChoice}.
-            \n\nCurrent Score: \nPlayer: ${playerWins}\nComputer ${computerWins}
-            \n\n${numberOfRounds} out of ${totalRounds} played.`);
+    drawScore();
+    displayMessage(`Oh dear.`, `A Tie! You both picked ${computerChoice}`, `Play Next Round`, "commenceRound");
 }
 
 function evaulateRoundWinner(computerChoice, playerChoice) {
@@ -95,12 +115,30 @@ function evaulateRoundWinner(computerChoice, playerChoice) {
     }
 
 function commenceRound(playerChoice) {
-    scoreCounter.textContent = `Your Wins: ${playerWins}   |   Computer Wins ${computerWins}`;
-    roundCounter.textContent = `Round: ${numberOfRounds}`;
-    let computerChoice = getComputerChoice();
-    evaulateRoundWinner(computerChoice, playerChoice);
-    return;
-} 
+    drawScore();
+    messageImage.classList.add('hidden');
+    messageWindow.classList.add('hidden');
+    gameWrapper.classList.remove('hidden');
+    if (numberOfRounds <= totalRounds) {
+        let computerChoice = getComputerChoice();
+        console.log(computerChoice);
+        evaulateRoundWinner(computerChoice, playerChoice);
+        gameHasWinner = haveWinner(numberOfRounds);
+            if (gameHasWinner) {
+                if (playerWins > computerWins) {
+                    let victor = "player";
+                    playAgainPrompt(victor);
+                } else if (computerWins > playerWins) {
+                    let victor = "computer";
+                    playAgainPrompt(victor);
+                } else {
+                    let victor = "tie";
+                    playAgainPrompt(victor);
+                }
+                return;
+            }
+    } 
+}
 
 function haveWinner(numberOfRounds) {
 // The following if statement evaulates if the rounds are up, 
@@ -117,37 +155,36 @@ function haveWinner(numberOfRounds) {
 }
 
 function playAgainPrompt(victor) {
-    let playAgain = true;
     if (victor != `tie`){
-        playAgain = confirm(`The ${victor} wins! Play again?`)
+        displayMessage(`That's it!`, `The ${victor} wins! Do you want to play again?`, `Let's Go!`, "initializeGame");
     } else {
-        playAgain = confirm(`It's a tie! Play again?`); 
+        displayMessage(`That's it!`, `It's a tie! Play again?`, `Let's Go!`, "initializeGame"); 
     }
     if (playAgain) {
-        computerWins = 0;
-        playerWins = 0;
-        numberOfRounds = 0;
-        newGame();
+        initializeGame();
     } else {
-         alert(`Thanks for playing!`);
-        }
-}
-
-function newGame() {
-    for (; numberOfRounds <= totalRounds; numberOfRounds++ ) {
-        gameHasWinner = haveWinner(numberOfRounds);
-            if (gameHasWinner) {
-                if (playerWins > computerWins) {
-                    let victor = "player";
-                    playAgainPrompt(victor);
-                } else if (computerWins > playerWins) {
-                    let victor = "computer";
-                    playAgainPrompt(victor);
-                } else {
-                    let victor = "tie";
-                    playAgainPrompt(victor);
-                }
-                return;
-            }
+         displayMessage("Thanks!", `Thanks for playing!`, "K", "");
         }
     }
+
+function displayMessage(headingText, messageText, buttonText, action) {
+    messageContent.textContent = messageText;
+    messageHeading.textContent = headingText;
+    startButton.textContent = buttonText;
+    buttonAction = action;
+    gameWrapper.classList.add('hidden');
+    messageWindow.classList.remove('hidden');
+    }
+
+function drawScore() {
+    scoreCounter.textContent = `Player Wins: ${playerWins}   |   Computer Wins ${computerWins}`;
+    roundCounter.textContent = `Round: ${numberOfRounds}/${totalRounds}`;
+}
+
+function initializeGame() {
+    numberOfRounds = 0;
+    playerWins = 0;
+    computerWins = 0;
+    messageImage.classList.remove('hidden');
+    displayMessage(`Welcome!`, `If you thought that text-based Rock Paper Scissors was cool, you're going to lose your mind over the GUI version!`, `Play`, "commenceRound");
+}
