@@ -45,7 +45,7 @@ rockSelect.addEventListener('click', () => {
 initializeGame();
 
 function getComputerChoice() {
-    let randomChoice = Math.floor(Math.random() * 3)
+    let randomChoice = Math.floor(Math.random() * 3);
     randomChoice = randomChoice === 0 ? randomChoice = "Rock" 
     : randomChoice === 1 ? randomChoice = "Paper" 
     : randomChoice === "Scissors"; 
