@@ -42,10 +42,7 @@ rockSelect.addEventListener('click', () => {
 });
 
 //Initial Setup. Event handlers will carry the game after this
-
 initializeGame();
-
-// Functions
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
