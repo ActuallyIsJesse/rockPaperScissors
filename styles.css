@@ -1,0 +1,45 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #FAFAFA;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    margin: 0px;
+    padding: 8px 0px;
+    background: #699339;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+footer {
+    background-color: #FFFFFF;
+    text-align: center;
+    color: #A1A2A3;
+}
+
+.hidden {
+    display: none;
+}
+
+.italicize {
+    font-style: italic;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.main-content {
+    display: flex;
+}
+
+#main-title {
+    font-weight: 500;
+    margin: 0px;
+}
