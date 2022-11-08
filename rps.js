@@ -4,8 +4,27 @@ let playerWins = 0;
 numberOfRounds = 1;
 
 const startButton = document.querySelector('#start-button');
-console.log(startButton);
-startButton.addEventListener('click', newGame);
+const welcome = document.querySelector('#welcome');
+const gameWrapper = document.querySelector('#game-wrapper');
+const rockSelect = document.querySelector('#rock-select');
+const paperSelect = document.querySelector('#paper-select');
+const scissorsSelect = document.querySelector('#scissors-select');
+const scoreCounter = document.querySelector('#score-counter');
+const roundCounter = document.querySelector('#round-counter');
+
+startButton.addEventListener('click', () => {
+    welcome.classList.add('hidden');
+    gameWrapper.classList.remove('hidden')
+    rockSelect.addEventListener('click', () => {
+        commenceRound("Rock");
+    });
+     paperSelect.addEventListener('click', () => {
+        commenceRound("Paper");
+      });
+     scissorsSelect.addEventListener('click', () => {
+        commenceRound("Scissors");
+    });
+});
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 3)
@@ -13,31 +32,6 @@ function getComputerChoice() {
     : (randomChoice = 1) ? randomChoice = "Paper" 
     : randomChoice = "Scissors"; 
     return randomChoice;
-}
-
-function getPlayerChoice() {
-    let playerSelection = prompt("Make your choice: Rock, Paper, or Scissors?");
-    if(playerSelection === null) {
-        alert(`You've got to pick something!`);
-        playerSelection = getPlayerChoice();
-        return playerSelection;
-    }
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-    if (inputIsValid(playerSelection)) {
-        return playerSelection;
-    } else {
-        alert("Whoops. That's not a valid option")
-        playerSelection = getPlayerChoice();
-        return playerSelection;
-    }
-}
-
-function inputIsValid(input) {
-    if(input === "Rock" || input === "Paper" || input === "Scissors") {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 function lostRound(computerChoice, playerChoice) {
@@ -100,10 +94,12 @@ function evaulateRoundWinner(computerChoice, playerChoice) {
         }
     }
 
-function commenceRound() {
+function commenceRound(playerChoice) {
+    scoreCounter.textContent = `Your Wins: ${playerWins}   |   Computer Wins ${computerWins}`;
+    roundCounter.textContent = `Round: ${numberOfRounds}`;
     let computerChoice = getComputerChoice();
-    let playerChoice = getPlayerChoice();
     evaulateRoundWinner(computerChoice, playerChoice);
+    return;
 } 
 
 function haveWinner(numberOfRounds) {
@@ -139,8 +135,7 @@ function playAgainPrompt(victor) {
 
 function newGame() {
     for (; numberOfRounds <= totalRounds; numberOfRounds++ ) {
-            commenceRound();
-            gameHasWinner = haveWinner(numberOfRounds);
+        gameHasWinner = haveWinner(numberOfRounds);
             if (gameHasWinner) {
                 if (playerWins > computerWins) {
                     let victor = "player";

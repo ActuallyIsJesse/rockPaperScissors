@@ -13,9 +13,9 @@
 <body>
     <div class="wrapper">
         <header>
-            <div class="round-counter"></div>
+            <div id="round-counter"></div>
             <div class="title"><img class="title" src="images/rockIcon.png"><h1 id="main-title">rock | paper | scissors</h1></div>
-            <div class="score-counter"></div>
+            <div id="score-counter"></div>
         </header>
         <div class="main-content">
             <div id="welcome" class="box">
@@ -24,7 +24,11 @@
                     you're going to lose your mind over the new-and-improved GUI version!</p>
                     <button id="start-button">Play</button>
             </div>
-            <p></p>
+            <div id="game-wrapper" class="hidden">
+                <div id="rock-select" class="box move"><img class="move-img" src="/images/hand-rock-solid-green.png"><h2>Rock</h2></div>
+                <div id="paper-select" class="box move"><img class="move-img" src="/images/hand-paper-solid-green.png"><h2>Paper</h2></div>
+                <div id="scissors-select" class="box move"><img class="move-img" src="/images/hand-scissors-solid-green.png"><h2>Scissors</h2></div>
+            </div>
         </div>
         <footer>
             <p>© Jesse Lord & Lilly Lord, 2022</p>
